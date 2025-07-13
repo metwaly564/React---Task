@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
 const BookmarkContext = createContext();
 
@@ -52,13 +52,14 @@ export const BookmarkProvider = ({ children }) => {
     }
   };
 
-  const value = {
+  // Memoize the context value to prevent unnecessary re-renders
+  const value = useMemo(() => ({
     bookmarks,
     addBookmark,
     removeBookmark,
     isBookmarked,
     toggleBookmark
-  };
+  }), [bookmarks]);
 
   return (
     <BookmarkContext.Provider value={value}>

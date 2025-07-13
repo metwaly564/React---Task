@@ -140,11 +140,17 @@ export const courseAPI = {
       const url = `${API_BASE_URL}/courses?${paramString}`;
       const res = await fetch(url);
       
-      if (!res.ok) throw new Error(`Failed to fetch courses: ${res.status}`);
+      if (!res.ok) {
+        // Handle 404 specifically for search results
+        if (res.status === 404) {
+          return [];
+        }
+        throw new Error(`Failed to fetch courses: ${res.status}`);
+      }
       
       const data = await res.json();
       
-      // Cache the response
+      // Cache the response (even empty results)
       cacheUtils.setCache(cacheKey, data);
       
       return data;

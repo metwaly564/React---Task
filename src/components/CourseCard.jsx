@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useBookmarks } from '../context/BookmarkContext';
+import { memo } from 'react';
 import localImage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
-const CourseCard = ({ course }) => {
+const CourseCard = memo(({ course }) => {
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const bookmarked = isBookmarked(course.id);
 
@@ -124,6 +125,6 @@ const CourseCard = ({ course }) => {
       </div>
     </div>
   );
-};
+});
 
 export default CourseCard; 

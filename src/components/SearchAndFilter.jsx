@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 
-const SearchAndFilter = ({ onSearch, onFilter, categories, selectedCategory }) => {
+const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
@@ -159,6 +159,6 @@ const SearchAndFilter = ({ onSearch, onFilter, categories, selectedCategory }) =
       )}
     </div>
   );
-};
+});
 
 export default SearchAndFilter; 
