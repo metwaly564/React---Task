@@ -28,7 +28,7 @@ A modern, performant course exploration web application built with React, featur
 - **Framework**: React 19 (Functional Components + Hooks)
 - **Routing**: React Router DOM
 - **State Management**: React Context API + useState/useEffect
-- **Styling**: Tailwind CSS
+- **Styling**: Tailwind CSS v4 (with Vite plugin)
 - **API**: Axios for HTTP requests
 - **Performance**: react-window + react-window-infinite-loader
 - **Build Tool**: Vite
