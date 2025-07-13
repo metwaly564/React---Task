@@ -118,14 +118,31 @@ const CoursesList = () => {
 
   if (error) {
     return (
-      <div className="text-center py-8">
-        <div className="text-red-600 mb-4">{error}</div>
-        <button
-          onClick={() => loadCourses(1, false)}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Try Again
-        </button>
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">Explore Courses</h1>
+        
+        <div className="error-container">
+          <div className="error-title">Setup Required</div>
+          <div className="error-message">{error}</div>
+          
+          <div className="setup-instructions">
+            <h3>To get started:</h3>
+            <ol>
+              <li>Go to <a href="https://mockapi.io" target="_blank" rel="noopener noreferrer" style={{color: '#2563eb', textDecoration: 'underline'}}>MockAPI</a> and create a new project</li>
+              <li>Create a resource called <code>courses</code> with the schema from the README</li>
+              <li>Add sample data (use the <code>sample-data.json</code> file)</li>
+              <li>Copy your MockAPI URL</li>
+              <li>Update <code>src/services/api.js</code> with your URL</li>
+            </ol>
+          </div>
+          
+          <button
+            onClick={() => loadCourses(1, false)}
+            style={{marginTop: '1rem'}}
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }

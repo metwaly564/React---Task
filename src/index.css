@@ -1,7 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 /* Custom styles for the Course Explorer app */
 body {
   margin: 0;

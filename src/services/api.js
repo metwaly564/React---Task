@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 // Replace with your actual MockAPI URL
+// For now, using a placeholder that will show an error message
 const API_BASE_URL = 'https://YOUR_MOCKAPI_PROJECT_ID.mockapi.io';
 
 const api = axios.create({
@@ -32,6 +33,11 @@ export const courseAPI = {
   // Get courses with pagination
   getCourses: async (page = 1, limit = 6, search = '', category = '') => {
     try {
+      // Check if API URL is configured
+      if (API_BASE_URL.includes('YOUR_MOCKAPI_PROJECT_ID')) {
+        throw new Error('MockAPI not configured. Please update the API_BASE_URL in src/services/api.js');
+      }
+
       const params = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
