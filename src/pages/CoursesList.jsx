@@ -31,11 +31,6 @@ const CoursesList = () => {
     loadCategories();
   }, []);
 
-  // Clear localStorage on mount to fix black images issue
-  useEffect(() => {
-    courseAPI.clearAllStorage();
-  }, []);
-
   // Reset courses when search or filter changes
   useEffect(() => {
     setCourses([]);
