@@ -20,7 +20,7 @@ const CourseCard = memo(({ course }) => {
           <img
             src={localImage}
             alt={course.title}
-            className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity duration-300"
+            className="w-full h-48 object-cover cursor-pointer hover:opacity-90 hover:scale-105 transition-all duration-300"
           />
         </Link>
         <button
