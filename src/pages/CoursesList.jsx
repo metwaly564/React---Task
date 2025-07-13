@@ -298,7 +298,7 @@ const CoursesList = () => {
       ) : (
         <div className="bg-gray-50 rounded-lg p-4 animate-slide-in">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 gap-6">
               {[...Array(6)].map((_, index) => (
                 <div key={index} className="w-full h-64 bg-white rounded-lg shadow-md animate-pulse">
                   <div className="h-48 bg-gray-200 rounded-t-lg"></div>
@@ -311,7 +311,7 @@ const CoursesList = () => {
               ))}
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 gap-6">
               {courses.map((course) => (
                 <div key={course.id} className="p-0">
                   <CourseCard course={course} />
