@@ -4,9 +4,9 @@ import axios from 'axios';
 // For now, using a placeholder that will show an error message
 const API_BASE_URL = 'https://6873dfedc75558e273558266.mockapi.io/api/v1';
 
-// Cache configuration
-const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes in milliseconds
-const CACHE_PREFIX = 'course_explorer_cache_';
+// Cache configuration - TEMPORARILY DISABLED
+// const CACHE_EXPIRY = 5 * 60 * 1000; // 5 minutes in milliseconds
+// const CACHE_PREFIX = 'course_explorer_cache_';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -33,90 +33,107 @@ api.interceptors.response.use(
   }
 );
 
-// Cache utility functions
-const cacheUtils = {
-  // Generate cache key
-  getCacheKey: (endpoint, params = {}) => {
-    const paramString = Object.keys(params)
-      .sort()
-      .map(key => `${key}=${params[key]}`)
-      .join('&');
-    return `${CACHE_PREFIX}${endpoint}${paramString ? `?${paramString}` : ''}`;
-  },
+// Cache utility functions - TEMPORARILY DISABLED
+// const cacheUtils = {
+//   // Generate cache key
+//   getCacheKey: (endpoint, params = {}) => {
+//     const paramString = Object.keys(params)
+//       .sort()
+//       .map(key => `${key}=${params[key]}`)
+//       .join('&');
+//     return `${CACHE_PREFIX}${endpoint}${paramString ? `?${paramString}` : ''}`;
+//   },
 
-  // Set cache with expiry
-  setCache: (key, data) => {
-    try {
-      const cacheData = {
-        data,
-        timestamp: Date.now(),
-        expiry: Date.now() + CACHE_EXPIRY
-      };
-      localStorage.setItem(key, JSON.stringify(cacheData));
-    } catch (error) {
-      console.warn('Failed to set cache:', error);
-    }
-  },
+//   // Set cache with expiry
+//   setCache: (key, data) => {
+//     try {
+//       const cacheData = {
+//         data,
+//         timestamp: Date.now(),
+//         expiry: Date.now() + CACHE_EXPIRY
+//       };
+//       localStorage.setItem(key, JSON.stringify(cacheData));
+//     } catch (error) {
+//       console.warn('Failed to set cache:', error);
+//     }
+//   },
 
-  // Get cache if not expired
-  getCache: (key) => {
-    try {
-      const cached = localStorage.getItem(key);
-      if (!cached) return null;
+//   // Get cache if not expired
+//   getCache: (key) => {
+//     try {
+//       const cached = localStorage.getItem(key);
+//       if (!cached) return null;
 
-      const cacheData = JSON.parse(cached);
-      if (Date.now() > cacheData.expiry) {
-        localStorage.removeItem(key);
-        return null;
-      }
+//       const cacheData = JSON.parse(cached);
+//       if (Date.now() > cacheData.expiry) {
+//         localStorage.removeItem(key);
+//         return null;
+//       }
 
-      return cacheData.data;
-    } catch (error) {
-      console.warn('Failed to get cache:', error);
-      return null;
-    }
-  },
+//       return cacheData.data;
+//     } catch (error) {
+//       console.warn('Failed to get cache:', error);
+//       return null;
+//     }
+//   },
 
-  // Clear expired cache entries
-  clearExpiredCache: () => {
-    try {
-      const keys = Object.keys(localStorage);
-      keys.forEach(key => {
-        if (key.startsWith(CACHE_PREFIX)) {
-          const cached = localStorage.getItem(key);
-          if (cached) {
-            const cacheData = JSON.parse(cached);
-            if (Date.now() > cacheData.expiry) {
-              localStorage.removeItem(key);
-            }
-          }
-        }
-      });
-    } catch (error) {
-      console.warn('Failed to clear expired cache:', error);
-    }
-  },
+//   // Clear expired cache entries
+//   clearExpiredCache: () => {
+//     try {
+//       const keys = Object.keys(localStorage);
+//       keys.forEach(key => {
+//         if (key.startsWith(CACHE_PREFIX)) {
+//           const cached = localStorage.getItem(key);
+//           if (cached) {
+//             const cacheData = JSON.parse(cached);
+//             if (Date.now() > cacheData.expiry) {
+//               localStorage.removeItem(key);
+//             }
+//           }
+//         }
+//       });
+//     } catch (error) {
+//       console.warn('Failed to clear expired cache:', error);
+//     }
+//   },
 
-  // Clear all cache
-  clearAllCache: () => {
-    try {
-      const keys = Object.keys(localStorage);
-      keys.forEach(key => {
-        if (key.startsWith(CACHE_PREFIX)) {
-          localStorage.removeItem(key);
-        }
-      });
-    } catch (error) {
-      console.warn('Failed to clear cache:', error);
-    }
-  }
-};
+//   // Clear all cache
+//   clearAllCache: () => {
+//     try {
+//       const keys = Object.keys(localStorage);
+//       keys.forEach(key => {
+//         if (key.startsWith(CACHE_PREFIX)) {
+//           localStorage.removeItem(key);
+//         }
+//       });
+//     } catch (error) {
+//       console.warn('Failed to clear cache:', error);
+//     }
+//   }
+// };
 
-// Clear expired cache on app start
-cacheUtils.clearExpiredCache();
+// Clear expired cache on app start - TEMPORARILY DISABLED
+// cacheUtils.clearExpiredCache();
 
 export const courseAPI = {
-  // Get courses with pagination and caching
+  // Clear all localStorage data - TEMPORARY FIX FOR BLACK IMAGES
+  clearAllStorage: () => {
+    try {
+      // Clear all localStorage items that might be related to the app
+      const keys = Object.keys(localStorage);
+      keys.forEach(key => {
+        if (key.includes('course') || key.includes('cache') || key.includes('bookmark')) {
+          localStorage.removeItem(key);
+          console.log('Cleared localStorage key:', key);
+        }
+      });
+      console.log('All app-related localStorage data cleared');
+    } catch (error) {
+      console.warn('Failed to clear localStorage:', error);
+    }
+  },
+
+  // Get courses with pagination - CACHING DISABLED
   getCourses: async (page = 1, limit = 6, search = '', category = '') => {
     try {
       const params = {
@@ -126,14 +143,13 @@ export const courseAPI = {
       if (search) params.search = search;
       if (category) params.category = category;
 
-      const cacheKey = cacheUtils.getCacheKey('courses', params);
-      
-      // Try to get from cache first
-      const cachedData = cacheUtils.getCache(cacheKey);
-      if (cachedData) {
-        console.log('Serving courses from cache');
-        return cachedData;
-      }
+      // CACHING DISABLED - Direct API call
+      // const cacheKey = cacheUtils.getCacheKey('courses', params);
+      // const cachedData = cacheUtils.getCache(cacheKey);
+      // if (cachedData) {
+      //   console.log('Serving courses from cache');
+      //   return cachedData;
+      // }
 
       // Fetch from API
       const paramString = new URLSearchParams(params).toString();
@@ -144,8 +160,8 @@ export const courseAPI = {
       
       const data = await res.json();
       
-      // Cache the response
-      cacheUtils.setCache(cacheKey, data);
+      // CACHING DISABLED
+      // cacheUtils.setCache(cacheKey, data);
       
       return data;
     } catch (error) {
@@ -154,17 +170,16 @@ export const courseAPI = {
     }
   },
 
-  // Get a single course by ID with caching
+  // Get a single course by ID - CACHING DISABLED
   getCourseById: async (id) => {
     try {
-      const cacheKey = cacheUtils.getCacheKey(`courses/${id}`);
-      
-      // Try to get from cache first
-      const cachedData = cacheUtils.getCache(cacheKey);
-      if (cachedData) {
-        console.log('Serving course details from cache');
-        return cachedData;
-      }
+      // CACHING DISABLED - Direct API call
+      // const cacheKey = cacheUtils.getCacheKey(`courses/${id}`);
+      // const cachedData = cacheUtils.getCache(cacheKey);
+      // if (cachedData) {
+      //   console.log('Serving course details from cache');
+      //   return cachedData;
+      // }
 
       // Fetch from API
       const url = `${API_BASE_URL}/courses/${id}`;
@@ -174,8 +189,8 @@ export const courseAPI = {
       
       const data = await res.json();
       
-      // Cache the response
-      cacheUtils.setCache(cacheKey, data);
+      // CACHING DISABLED
+      // cacheUtils.setCache(cacheKey, data);
       
       return data;
     } catch (error) {
@@ -184,17 +199,16 @@ export const courseAPI = {
     }
   },
 
-  // Get all categories for filtering with caching
+  // Get all categories for filtering - CACHING DISABLED
   getCategories: async () => {
     try {
-      const cacheKey = cacheUtils.getCacheKey('categories');
-      
-      // Try to get from cache first
-      const cachedData = cacheUtils.getCache(cacheKey);
-      if (cachedData) {
-        console.log('Serving categories from cache');
-        return cachedData;
-      }
+      // CACHING DISABLED - Direct API call
+      // const cacheKey = cacheUtils.getCacheKey('categories');
+      // const cachedData = cacheUtils.getCache(cacheKey);
+      // if (cachedData) {
+      //   console.log('Serving categories from cache');
+      //   return cachedData;
+      // }
 
       // Fetch from API
       const url = `${API_BASE_URL}/courses`;
@@ -205,8 +219,8 @@ export const courseAPI = {
       const data = await res.json();
       const categories = [...new Set(data.map(course => course.category))];
       
-      // Cache the response
-      cacheUtils.setCache(cacheKey, categories);
+      // CACHING DISABLED
+      // cacheUtils.setCache(cacheKey, categories);
       
       return categories;
     } catch (error) {
@@ -215,50 +229,54 @@ export const courseAPI = {
     }
   },
 
-  // Clear cache for specific course (useful when course is updated)
-  clearCourseCache: (courseId) => {
-    if (courseId) {
-      const cacheKey = cacheUtils.getCacheKey(`courses/${courseId}`);
-      try {
-        localStorage.removeItem(cacheKey);
-      } catch (error) {
-        console.warn('Failed to clear course cache:', error);
-      }
-    }
+  // Clear cache for specific course (useful when course is updated) - DISABLED
+  clearCourseCache: () => {
+    // CACHING DISABLED
+    // if (courseId) {
+    //   const cacheKey = cacheUtils.getCacheKey(`courses/${courseId}`);
+    //   try {
+    //     localStorage.removeItem(cacheKey);
+    //   } catch (error) {
+    //     console.warn('Failed to clear course cache:', error);
+    //   }
+    // }
   },
 
-  // Clear all course cache
+  // Clear all course cache - DISABLED
   clearAllCourseCache: () => {
-    cacheUtils.clearAllCache();
+    // CACHING DISABLED
+    // cacheUtils.clearAllCache();
   },
 
-  // Get cache statistics
+  // Get cache statistics - DISABLED
   getCacheStats: () => {
-    try {
-      const keys = Object.keys(localStorage);
-      const cacheKeys = keys.filter(key => key.startsWith(CACHE_PREFIX));
-      const stats = {
-        totalEntries: cacheKeys.length,
-        totalSize: 0,
-        expiredEntries: 0
-      };
+    // CACHING DISABLED
+    // try {
+    //   const keys = Object.keys(localStorage);
+    //   const cacheKeys = keys.filter(key => key.startsWith(CACHE_PREFIX));
+    //   const stats = {
+    //     totalEntries: cacheKeys.length,
+    //     totalSize: 0,
+    //     expiredEntries: 0
+    //   };
 
-      cacheKeys.forEach(key => {
-        const cached = localStorage.getItem(key);
-        if (cached) {
-          stats.totalSize += cached.length;
-          const cacheData = JSON.parse(cached);
-          if (Date.now() > cacheData.expiry) {
-            stats.expiredEntries++;
-          }
-        }
-      });
+    //   cacheKeys.forEach(key => {
+    //     const cached = localStorage.getItem(key);
+    //     if (cached) {
+    //       stats.totalSize += cached.length;
+    //       const cacheData = JSON.parse(cached);
+    //       if (Date.now() > cacheData.expiry) {
+    //         stats.expiredEntries++;
+    //       }
+    //     }
+    //   });
 
-      return stats;
-    } catch (error) {
-      console.warn('Failed to get cache stats:', error);
-      return null;
-    }
+    //   return stats;
+    // } catch (error) {
+    //   console.warn('Failed to get cache stats:', error);
+    //   return null;
+    // }
+    return null;
   }
 };
 

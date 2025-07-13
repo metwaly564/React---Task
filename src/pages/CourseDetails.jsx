@@ -10,6 +10,26 @@ const CourseDetails = () => {
   const [error, setError] = useState(null);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
+  // Better fallback images based on category
+  const getFallbackImage = (category) => {
+    const categoryImages = {
+      'Frontend': 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&h=400&fit=crop',
+      'Backend': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop',
+      'JavaScript': 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=800&h=400&fit=crop',
+      'Data Science': 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=800&h=400&fit=crop',
+      'Mobile': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop',
+      'Full Stack': 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400&fit=crop',
+      'Design': 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=400&fit=crop',
+      'DevOps': 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&h=400&fit=crop'
+    };
+    
+    return categoryImages[category] || 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop';
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = getFallbackImage(course?.category);
+  };
+
   useEffect(() => {
     const loadCourse = async () => {
       setLoading(true);
@@ -127,16 +147,15 @@ const CourseDetails = () => {
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8 hover-lift">
         <div className="relative group">
           <img
-            src={course.image_source || 'https://via.placeholder.com/800x400?text=Course+Image'}
+            src={course.image_source || getFallbackImage(course.category)}
             alt={course.title}
             className="w-full h-48 md:h-64 lg:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
-            onError={(e) => {
-              e.target.src = 'https://via.placeholder.com/800x400?text=Course+Image';
-            }}
+            onError={handleImageError}
+            loading="lazy"
           />
           <button
             onClick={handleBookmarkClick}
-            className={`absolute top-4 right-4 p-3 rounded-full transition-all duration-300 mobile-touch-target shadow-lg ${
+            className={`absolute top-4 right-4 p-3 rounded-full transition-all duration-300 mobile-touch-target shadow-lg z-10 ${
               bookmarked
                 ? 'bg-yellow-400 text-yellow-800 hover:bg-yellow-500 hover:scale-110'
                 : 'bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-white hover:text-yellow-600 hover:scale-110'

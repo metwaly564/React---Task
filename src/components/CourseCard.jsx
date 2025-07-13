@@ -11,17 +11,54 @@ const CourseCard = ({ course }) => {
     toggleBookmark(course);
   };
 
+  // Better fallback images based on category
+  const getFallbackImage = (category) => {
+    // Simple data URL as ultimate fallback
+    const dataUrl = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzY2NzM4NyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkNvdXJzZSBJbWFnZTwvdGV4dD4KPC9zdmc+';
+    
+    const categoryImages = {
+      'Frontend': 'https://picsum.photos/400/300?random=1',
+      'Backend': 'https://picsum.photos/400/300?random=2',
+      'JavaScript': 'https://picsum.photos/400/300?random=3',
+      'Data Science': 'https://picsum.photos/400/300?random=4',
+      'Mobile': 'https://picsum.photos/400/300?random=5',
+      'Full Stack': 'https://picsum.photos/400/300?random=6',
+      'Design': 'https://picsum.photos/400/300?random=7',
+      'DevOps': 'https://picsum.photos/400/300?random=8'
+    };
+    
+    return categoryImages[category] || dataUrl;
+  };
+
+  const handleImageError = (e) => {
+    console.log('Image failed to load, using fallback for category:', course.category);
+    e.target.src = getFallbackImage(course.category);
+  };
+
+  // Force use fallback images for now to debug
+  const imageUrl = getFallbackImage(course.category);
+  console.log('Course:', course.title, 'Category:', course.category, 'Image URL:', imageUrl);
+
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden hover-lift animate-fade-in">
       <div className="relative group">
-        <img
-          src={course.image_source || 'https://via.placeholder.com/300x200?text=Course+Image'}
-          alt={course.title}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/300x200?text=Course+Image';
-          }}
-        />
+        <div 
+          className="w-full h-48 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg"
+          style={{ backgroundImage: `url(${imageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center' }}
+        >
+          <img
+            src={imageUrl}
+            alt={course.title}
+            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+            onError={handleImageError}
+            loading="lazy"
+            crossOrigin="anonymous"
+            style={{ display: 'none' }} // Hide the img element and use background instead
+          />
+          <span className="text-white text-sm bg-black bg-opacity-50 px-2 py-1 rounded">
+            {course.category}
+          </span>
+        </div>
         <button
           onClick={handleBookmarkClick}
           className={`absolute top-3 right-3 p-3 rounded-full transition-all duration-300 mobile-touch-target shadow-lg z-10 ${
