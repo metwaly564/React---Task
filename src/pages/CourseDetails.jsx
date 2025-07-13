@@ -11,6 +11,11 @@ const CourseDetails = () => {
   const [error, setError] = useState(null);
   const { isBookmarked, toggleBookmark } = useBookmarks();
 
+  // Scroll to top when component mounts or course ID changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [id]);
+
   useEffect(() => {
     const loadCourse = async () => {
       setLoading(true);
