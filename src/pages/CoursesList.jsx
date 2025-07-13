@@ -115,7 +115,7 @@ const CoursesList = () => {
         key="prev"
         onClick={() => handlePageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed mobile-touch-target"
+        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mobile-touch-target"
       >
         Previous
       </button>
@@ -127,7 +127,7 @@ const CoursesList = () => {
         <button
           key={1}
           onClick={() => handlePageChange(1)}
-          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border-t border-b border-gray-300 hover:bg-gray-50 mobile-touch-target"
+          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border-t border-b border-gray-300 hover:bg-gray-50 cursor-pointer mobile-touch-target"
         >
           1
         </button>
@@ -147,7 +147,7 @@ const CoursesList = () => {
         <button
           key={i}
           onClick={() => handlePageChange(i)}
-          className={`px-3 py-2 text-sm font-medium border-t border-b border-gray-300 mobile-touch-target ${
+          className={`px-3 py-2 text-sm font-medium border-t border-b border-gray-300 cursor-pointer mobile-touch-target ${
             i === currentPage
               ? 'text-blue-600 bg-blue-50 border-blue-500'
               : 'text-gray-500 bg-white hover:bg-gray-50'
@@ -171,7 +171,7 @@ const CoursesList = () => {
         <button
           key={totalPages}
           onClick={() => handlePageChange(totalPages)}
-          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border-t border-b border-gray-300 hover:bg-gray-50 mobile-touch-target"
+          className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border-t border-b border-gray-300 hover:bg-gray-50 cursor-pointer mobile-touch-target"
         >
           {totalPages}
         </button>
@@ -184,7 +184,7 @@ const CoursesList = () => {
         key="next"
         onClick={() => handlePageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed mobile-touch-target"
+        className="px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer mobile-touch-target"
       >
         Next
       </button>
