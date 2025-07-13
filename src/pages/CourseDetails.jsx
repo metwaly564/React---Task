@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useBookmarks } from '../context/BookmarkContext';
 import { courseAPI } from '../services/api';
+import Dummyimage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
 const CourseDetails = () => {
   const { id } = useParams();
@@ -127,7 +128,7 @@ const CourseDetails = () => {
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8 hover-lift">
         <div className="relative group">
           <img
-            src={course.image_source || 'https://via.placeholder.com/800x400?text=Course+Image'}
+            src={Dummyimage}
             alt={course.title}
             className="w-full h-48 md:h-64 lg:h-80 object-cover transition-transform duration-300 group-hover:scale-105"
             onError={(e) => {
@@ -171,8 +172,6 @@ const CourseDetails = () => {
             )}
           </button>
           
-          {/* Overlay on hover */}
-          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
         </div>
 
         <div className="p-6">

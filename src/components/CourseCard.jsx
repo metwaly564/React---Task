@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useBookmarks } from '../context/BookmarkContext';
+import localImage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
 const CourseCard = ({ course }) => {
   const { isBookmarked, toggleBookmark } = useBookmarks();
@@ -15,12 +16,9 @@ const CourseCard = ({ course }) => {
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden hover-lift animate-fade-in">
       <div className="relative group">
         <img
-          src={course.image_source || 'https://via.placeholder.com/300x200?text=Course+Image'}
+          src={localImage}
           alt={course.title}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
-          onError={(e) => {
-            e.target.src = 'https://via.placeholder.com/300x200?text=Course+Image';
-          }}
+          className="w-full h-48 object-cover"
         />
         <button
           onClick={handleBookmarkClick}
@@ -59,13 +57,9 @@ const CourseCard = ({ course }) => {
           )}
         </button>
         
-        {/* Bookmark tooltip */}
-        <div className="absolute top-12 right-3 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-20">
-          {bookmarked ? 'Remove bookmark' : 'Add bookmark'}
-        </div>
+      
         
         {/* Overlay on hover */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition-all duration-300"></div>
       </div>
       
       <div className="p-4 md:p-6">
