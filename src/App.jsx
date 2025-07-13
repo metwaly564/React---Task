@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
-import CoursesList from './pages/CoursesList';
-import CourseDetails from './pages/CourseDetails';
-import Bookmarks from './pages/Bookmarks';
+import CoursesList from './components/CoursesList';
+import CourseDetails from './components/CourseDetails';
+import Bookmarks from './components/Bookmarks';
 import { BookmarkProvider } from './context/BookmarkContext';
 import './App.css';
 
