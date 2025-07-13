@@ -100,8 +100,15 @@ const CoursesList = () => {
   const Row = useCallback(({ index, style }) => {
     if (!isItemLoaded(index)) {
       return (
-        <div style={style} className="flex justify-center items-center h-64">
-          <div className="animate-pulse bg-gray-200 rounded-lg w-full h-64"></div>
+        <div style={style} className="flex justify-center items-center h-64 p-4">
+          <div className="w-full h-64 bg-white rounded-lg shadow-md animate-pulse">
+            <div className="h-48 bg-gray-200 rounded-t-lg"></div>
+            <div className="p-4 space-y-3">
+              <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              <div className="h-3 bg-gray-200 rounded w-1/2"></div>
+              <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+            </div>
+          </div>
         </div>
       );
     }
@@ -110,7 +117,7 @@ const CoursesList = () => {
     if (!course) return null;
 
     return (
-      <div style={style} className="p-2">
+      <div style={style} className="p-4">
         <CourseCard course={course} />
       </div>
     );
@@ -118,17 +125,27 @@ const CoursesList = () => {
 
   if (error) {
     return (
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Explore Courses</h1>
+      <div className="max-w-4xl mx-auto animate-fade-in">
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 flex items-center">
+          <svg className="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
+          Explore Courses
+        </h1>
         
-        <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center my-8">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-8 text-center my-8 animate-scale-in">
           <div className="text-red-600 text-xl font-semibold mb-4">Setup Required</div>
-          <div className="text-gray-600 mb-6">{error}</div>
+          <div className="text-gray-600 mb-6 mobile-optimized">{error}</div>
           
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mt-4 text-left">
-            <h3 className="text-blue-800 font-semibold mb-3">To get started:</h3>
-            <ol className="ml-6 text-gray-700 space-y-2">
-              <li>Go to <a href="https://mockapi.io" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">MockAPI</a> and create a new project</li>
+            <h3 className="text-blue-800 font-semibold mb-3 flex items-center">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              To get started:
+            </h3>
+            <ol className="ml-6 text-gray-700 space-y-2 mobile-optimized">
+              <li>Go to <a href="https://mockapi.io" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline hover:text-blue-800">MockAPI</a> and create a new project</li>
               <li>Create a resource called <code className="bg-gray-100 px-2 py-1 rounded text-sm">courses</code> with the schema from the README</li>
               <li>Add sample data (use the <code className="bg-gray-100 px-2 py-1 rounded text-sm">sample-data.json</code> file)</li>
               <li>Copy your MockAPI URL</li>
@@ -138,8 +155,11 @@ const CoursesList = () => {
           
           <button
             onClick={() => loadCourses(1, false)}
-            className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 mobile-touch-target font-medium"
           >
+            <svg className="w-5 h-5 mr-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
             Try Again
           </button>
         </div>
@@ -148,8 +168,13 @@ const CoursesList = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Explore Courses</h1>
+    <div className="max-w-7xl mx-auto animate-fade-in">
+      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 flex items-center">
+        <svg className="w-8 h-8 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        Explore Courses
+      </h1>
       
       <SearchAndFilter
         onSearch={handleSearch}
@@ -159,14 +184,21 @@ const CoursesList = () => {
       />
 
       {courses.length === 0 && !loading ? (
-        <div className="text-center py-12">
-          <div className="text-gray-500 text-lg">No courses found.</div>
-          <div className="text-gray-400 text-sm mt-2">
-            Try adjusting your search or filter criteria.
+        <div className="text-center py-16 animate-scale-in">
+          <div className="bg-gray-50 border border-gray-200 rounded-lg p-12 max-w-md mx-auto">
+            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <div className="text-gray-500 text-lg mb-4 font-medium">No courses found.</div>
+            <div className="text-gray-400 text-sm mobile-optimized">
+              Try adjusting your search or filter criteria.
+            </div>
           </div>
         </div>
       ) : (
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 rounded-lg p-4 animate-slide-in">
           <InfiniteLoader
             isItemLoaded={isItemLoaded}
             itemCount={hasMore ? courses.length + 6 : courses.length}
@@ -177,7 +209,7 @@ const CoursesList = () => {
                 ref={ref}
                 height={800}
                 itemCount={hasMore ? courses.length + 6 : courses.length}
-                itemSize={400}
+                itemSize={450}
                 onItemsRendered={onItemsRendered}
                 width="100%"
               >
@@ -189,9 +221,23 @@ const CoursesList = () => {
       )}
 
       {loading && courses.length === 0 && (
-        <div className="text-center py-8">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <div className="text-gray-500 mt-2">Loading courses...</div>
+        <div className="text-center py-12 animate-pulse-slow">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <div className="text-gray-500 text-lg font-medium">Loading courses...</div>
+          <div className="text-gray-400 text-sm mt-2 mobile-optimized">Please wait while we fetch the latest courses</div>
+        </div>
+      )}
+
+      {/* Course count indicator */}
+      {courses.length > 0 && (
+        <div className="mt-6 text-center animate-scale-in">
+          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Showing {courses.length} course{courses.length !== 1 ? 's' : ''}
+            {hasMore && ' (scroll for more)'}
+          </div>
         </div>
       )}
     </div>
