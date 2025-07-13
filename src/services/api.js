@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Replace with your actual MockAPI URL
 // For now, using a placeholder that will show an error message
-const API_BASE_URL = 'https://YOUR_MOCKAPI_PROJECT_ID.mockapi.io';
+const API_BASE_URL = 'https://6873dfedc75558e273558266.mockapi.io/api/v1';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -33,26 +33,16 @@ export const courseAPI = {
   // Get courses with pagination
   getCourses: async (page = 1, limit = 6, search = '', category = '') => {
     try {
-      // Check if API URL is configured
-      if (API_BASE_URL.includes('YOUR_MOCKAPI_PROJECT_ID')) {
-        throw new Error('MockAPI not configured. Please update the API_BASE_URL in src/services/api.js');
-      }
-
       const params = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
       });
-
-      if (search) {
-        params.append('search', search);
-      }
-
-      if (category) {
-        params.append('category', category);
-      }
-
-      const response = await api.get(`/courses?${params.toString()}`);
-      return response.data;
+      if (search) params.append('search', search);
+      if (category) params.append('category', category);
+      const url = `${API_BASE_URL}/courses?${params.toString()}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to fetch courses: ${res.status}`);
+      return await res.json();
     } catch (error) {
       console.error('Error fetching courses:', error);
       throw error;
@@ -62,8 +52,10 @@ export const courseAPI = {
   // Get a single course by ID
   getCourseById: async (id) => {
     try {
-      const response = await api.get(`/courses/${id}`);
-      return response.data;
+      const url = `${API_BASE_URL}/courses/${id}`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to fetch course: ${res.status}`);
+      return await res.json();
     } catch (error) {
       console.error('Error fetching course:', error);
       throw error;
@@ -73,8 +65,11 @@ export const courseAPI = {
   // Get all categories for filtering
   getCategories: async () => {
     try {
-      const response = await api.get('/courses');
-      const categories = [...new Set(response.data.map(course => course.category))];
+      const url = `${API_BASE_URL}/courses`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);
+      const data = await res.json();
+      const categories = [...new Set(data.map(course => course.category))];
       return categories;
     } catch (error) {
       console.error('Error fetching categories:', error);

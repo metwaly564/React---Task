@@ -83,7 +83,7 @@ npm install
 Update the API base URL in `src/services/api.js`:
 
 ```javascript
-const API_BASE_URL = 'https://YOUR_MOCKAPI_PROJECT_ID.mockapi.io';
+const API_BASE_URL = 'https://6873dfedc75558e273558266.mockapi.io/api/v1';
 ```
 
 Replace `YOUR_MOCKAPI_PROJECT_ID` with your actual MockAPI project ID.
