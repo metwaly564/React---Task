@@ -16,11 +16,13 @@ const CourseCard = memo(({ course }) => {
   return (
     <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden hover-lift animate-fade-in">
       <div className="relative group">
-        <img
-          src={localImage}
-          alt={course.title}
-          className="w-full h-48 object-cover"
-        />
+        <Link to={`/course/${course.id}`} className="block">
+          <img
+            src={localImage}
+            alt={course.title}
+            className="w-full h-48 object-cover cursor-pointer hover:opacity-90 transition-opacity duration-300"
+          />
+        </Link>
         <button
           onClick={handleBookmarkClick}
           className={`absolute top-3 right-3 p-3 rounded-full transition-all duration-300 mobile-touch-target shadow-lg z-10 ${
@@ -73,9 +75,11 @@ const CourseCard = memo(({ course }) => {
           </div>
         </div>
         
-        <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 line-clamp-2 leading-tight">
-          {course.title}
-        </h3>
+        <Link to={`/course/${course.id}`} className="block">
+          <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 line-clamp-2 leading-tight hover:text-blue-600 transition-colors duration-200 cursor-pointer">
+            {course.title}
+          </h3>
+        </Link>
         
         <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed mobile-optimized">
           {course.description}
