@@ -1,0 +1,242 @@
+[
+  {
+    "id": "1",
+    "title": "Complete React Developer Course 2024",
+    "image_source": "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=300&fit=crop",
+    "description": "Master React from scratch with this comprehensive course. Learn hooks, context, routing, and build real-world applications.",
+    "teacher": "Sarah Johnson",
+    "category": "Frontend",
+    "lessons": [
+      {
+        "title": "Introduction to React",
+        "duration": 45,
+        "videos_count": 3
+      },
+      {
+        "title": "Components and Props",
+        "duration": 60,
+        "videos_count": 4
+      },
+      {
+        "title": "State and Lifecycle",
+        "duration": 75,
+        "videos_count": 5
+      },
+      {
+        "title": "Hooks Deep Dive",
+        "duration": 90,
+        "videos_count": 6
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "title": "Node.js Backend Development",
+    "image_source": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=400&h=300&fit=crop",
+    "description": "Build scalable backend applications with Node.js, Express, and MongoDB. Learn authentication, APIs, and deployment.",
+    "teacher": "Michael Chen",
+    "category": "Backend",
+    "lessons": [
+      {
+        "title": "Node.js Fundamentals",
+        "duration": 50,
+        "videos_count": 3
+      },
+      {
+        "title": "Express.js Framework",
+        "duration": 65,
+        "videos_count": 4
+      },
+      {
+        "title": "Database Integration",
+        "duration": 80,
+        "videos_count": 5
+      },
+      {
+        "title": "Authentication & Security",
+        "duration": 70,
+        "videos_count": 4
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "title": "Advanced JavaScript Concepts",
+    "image_source": "https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?w=400&h=300&fit=crop",
+    "description": "Deep dive into advanced JavaScript concepts including closures, prototypes, async/await, and functional programming.",
+    "teacher": "David Wilson",
+    "category": "JavaScript",
+    "lessons": [
+      {
+        "title": "Closures and Scope",
+        "duration": 55,
+        "videos_count": 3
+      },
+      {
+        "title": "Prototypes and Inheritance",
+        "duration": 70,
+        "videos_count": 4
+      },
+      {
+        "title": "Async Programming",
+        "duration": 85,
+        "videos_count": 5
+      },
+      {
+        "title": "Functional Programming",
+        "duration": 60,
+        "videos_count": 4
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "title": "Python for Data Science",
+    "image_source": "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=400&h=300&fit=crop",
+    "description": "Learn Python programming for data analysis, machine learning, and scientific computing with practical projects.",
+    "teacher": "Emily Rodriguez",
+    "category": "Data Science",
+    "lessons": [
+      {
+        "title": "Python Basics",
+        "duration": 40,
+        "videos_count": 3
+      },
+      {
+        "title": "Data Manipulation with Pandas",
+        "duration": 75,
+        "videos_count": 5
+      },
+      {
+        "title": "Data Visualization",
+        "duration": 60,
+        "videos_count": 4
+      },
+      {
+        "title": "Machine Learning Introduction",
+        "duration": 90,
+        "videos_count": 6
+      }
+    ]
+  },
+  {
+    "id": "5",
+    "title": "Mobile App Development with React Native",
+    "image_source": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=300&fit=crop",
+    "description": "Build cross-platform mobile applications using React Native. Learn navigation, state management, and native features.",
+    "teacher": "Alex Thompson",
+    "category": "Mobile",
+    "lessons": [
+      {
+        "title": "React Native Setup",
+        "duration": 45,
+        "videos_count": 3
+      },
+      {
+        "title": "Navigation and Routing",
+        "duration": 65,
+        "videos_count": 4
+      },
+      {
+        "title": "State Management",
+        "duration": 70,
+        "videos_count": 4
+      },
+      {
+        "title": "Native Features Integration",
+        "duration": 80,
+        "videos_count": 5
+      }
+    ]
+  },
+  {
+    "id": "6",
+    "title": "Full Stack Web Development",
+    "image_source": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop",
+    "description": "Complete full-stack development course covering frontend, backend, databases, and deployment strategies.",
+    "teacher": "Lisa Park",
+    "category": "Full Stack",
+    "lessons": [
+      {
+        "title": "Frontend Fundamentals",
+        "duration": 60,
+        "videos_count": 4
+      },
+      {
+        "title": "Backend Development",
+        "duration": 75,
+        "videos_count": 5
+      },
+      {
+        "title": "Database Design",
+        "duration": 55,
+        "videos_count": 3
+      },
+      {
+        "title": "Deployment and DevOps",
+        "duration": 70,
+        "videos_count": 4
+      }
+    ]
+  },
+  {
+    "id": "7",
+    "title": "UI/UX Design Principles",
+    "image_source": "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=400&h=300&fit=crop",
+    "description": "Master the fundamentals of UI/UX design. Learn user research, wireframing, prototyping, and design systems.",
+    "teacher": "Rachel Green",
+    "category": "Design",
+    "lessons": [
+      {
+        "title": "User Research Methods",
+        "duration": 50,
+        "videos_count": 3
+      },
+      {
+        "title": "Wireframing and Prototyping",
+        "duration": 65,
+        "videos_count": 4
+      },
+      {
+        "title": "Visual Design Principles",
+        "duration": 70,
+        "videos_count": 4
+      },
+      {
+        "title": "Design Systems",
+        "duration": 60,
+        "videos_count": 4
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "title": "DevOps and CI/CD Pipeline",
+    "image_source": "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=400&h=300&fit=crop",
+    "description": "Learn DevOps practices, containerization with Docker, and continuous integration/deployment pipelines.",
+    "teacher": "James Miller",
+    "category": "DevOps",
+    "lessons": [
+      {
+        "title": "DevOps Fundamentals",
+        "duration": 55,
+        "videos_count": 3
+      },
+      {
+        "title": "Docker and Containers",
+        "duration": 75,
+        "videos_count": 5
+      },
+      {
+        "title": "CI/CD Pipelines",
+        "duration": 80,
+        "videos_count": 5
+      },
+      {
+        "title": "Cloud Deployment",
+        "duration": 65,
+        "videos_count": 4
+      }
+    ]
+  }
+] 
