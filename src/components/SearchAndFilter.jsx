@@ -4,6 +4,7 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [isSearching, setIsSearching] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // Debounce search input (500ms delay)
   useEffect(() => {
@@ -49,7 +50,7 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by title or teacher..."
-              className="w-full px-4 py-3 pl-10 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 mobile-touch-target"
+              className="w-full px-4 py-3 pl-10 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 mobile-touch-target cursor-pointer focus:outline-none"
             />
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -88,7 +89,9 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
               id="category"
               value={selectedCategory}
               onChange={handleCategoryChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 mobile-touch-target appearance-none bg-white"
+              onFocus={() => setIsDropdownOpen(true)}
+              onBlur={() => setIsDropdownOpen(false)}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 mobile-touch-target appearance-none bg-white cursor-pointer focus:outline-none"
             >
               <option value="">All Categories</option>
               {categories.map((category) => (
@@ -98,7 +101,12 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
               ))}
             </select>
             <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </div>
