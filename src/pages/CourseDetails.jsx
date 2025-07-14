@@ -1,7 +1,7 @@
 // Import React hooks, router utilities, and custom hooks
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
+import BookmarkContext from '../context/BookmarkContext';
 import sampleData from '../../sample-data.json';
 import Dummyimage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
@@ -11,7 +11,7 @@ const CourseDetails = () => {
   const [course, setCourse] = useState(null); // State for course data
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error state
-  const { isBookmarked, toggleBookmark } = useBookmarks(); // Bookmark utilities
+  const { isBookmarked, toggleBookmark } = useContext(BookmarkContext); // Bookmark utilities
 
   // Scroll to top when component mounts or course ID changes
   useEffect(() => {

@@ -1,13 +1,13 @@
 // Import React hooks and router utilities
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 // Import custom hook for accessing bookmarks context
-import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
+import BookmarkContext from '../context/BookmarkContext';
 
 // Navbar component for site navigation
 const Navbar = () => {
   const location = useLocation(); // Get current route location
-  const { bookmarks } = useBookmarks(); // Get bookmarks from context
+  const { bookmarks } = useContext(BookmarkContext); // Get bookmarks from context
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
 
   // Helper to check if a nav link is active

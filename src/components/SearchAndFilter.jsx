@@ -27,6 +27,7 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
   // Handle category filter change
   const handleCategoryChange = (e) => {
     const category = e.target.value;
+    console.log(category);
     onFilter(category);
   };
 

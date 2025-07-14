@@ -23,7 +23,8 @@ const CoursesList = () => {
   const filteredCourses = courses.filter(course => {
     const matchesSearch =
       course.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      course.teacher.toLowerCase().includes(searchTerm.toLowerCase());
+      course.teacher.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchTerm.toLowerCase()) 
     const matchesCategory = selectedCategory ? course.category === selectedCategory : true;
     return matchesSearch && matchesCategory;
   });

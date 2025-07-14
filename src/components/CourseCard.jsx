@@ -1,13 +1,13 @@
 // Import Link for navigation, memo for optimization, and bookmark context
 import { Link } from 'react-router-dom';
-import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
-import { memo } from 'react';
+import { memo, useContext } from 'react';
 import localImage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
+import BookmarkContext from '../context/BookmarkContext';
 
 // Memoized CourseCard for performance
 const CourseCard = memo(({ course }) => {
   // Get bookmark utilities from context
-  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { isBookmarked, toggleBookmark } = useContext(BookmarkContext);
   const bookmarked = isBookmarked(course.id);
 
   // Handle bookmark button click

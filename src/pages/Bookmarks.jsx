@@ -1,10 +1,11 @@
 // Import custom hook for bookmarks and CourseCard component
-import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
 import CourseCard from '../components/CourseCard';
+import { useContext } from 'react';
+import BookmarkContext from '../context/BookmarkContext';
 
 // Bookmarks page component
 const Bookmarks = () => {
-  const { bookmarks, removeBookmark } = useBookmarks();
+  const { bookmarks, removeBookmark } = useContext(BookmarkContext);
 
   // Handler to remove a bookmark by course ID
   const handleRemoveBookmark = (courseId) => {
