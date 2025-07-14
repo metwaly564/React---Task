@@ -81,7 +81,7 @@ const CourseCard = memo(({ course }) => {
           </h3>
         </Link>
         
-        <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed mobile-optimized">
+        <p className="text-sm text-gray-600 mb-4 leading-relaxed mobile-optimized" style={{height: '44px', overflow: 'hidden', textOverflow: 'ellipsis'}}>
           {course.description}
         </p>
         
