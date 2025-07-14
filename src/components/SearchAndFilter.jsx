@@ -1,10 +1,12 @@
+// Import React hooks and memo for optimization
 import { useState, useEffect, memo } from 'react';
 
+// Search and filter component for courses
 const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
-  const [isSearching, setIsSearching] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Search input value
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(''); // Debounced search value
+  const [isSearching, setIsSearching] = useState(false); // Loading state for search
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // Dropdown open state
 
   // Debounce search input (500ms delay)
   useEffect(() => {
@@ -22,15 +24,18 @@ const SearchAndFilter = memo(({ onSearch, onFilter, categories, selectedCategory
     onSearch(debouncedSearchTerm);
   }, [debouncedSearchTerm, onSearch]);
 
+  // Handle category filter change
   const handleCategoryChange = (e) => {
     const category = e.target.value;
     onFilter(category);
   };
 
+  // Clear search input
   const clearSearch = () => {
     setSearchTerm('');
   };
 
+  // Clear category filter
   const clearFilter = () => {
     onFilter('');
   };

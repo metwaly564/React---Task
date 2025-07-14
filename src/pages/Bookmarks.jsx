@@ -1,15 +1,19 @@
-import { useBookmarks } from '../context/BookmarkContext';
+// Import custom hook for bookmarks and CourseCard component
+import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
 import CourseCard from '../components/CourseCard';
 
+// Bookmarks page component
 const Bookmarks = () => {
   const { bookmarks, removeBookmark } = useBookmarks();
 
+  // Handler to remove a bookmark by course ID
   const handleRemoveBookmark = (courseId) => {
     removeBookmark(courseId);
   };
 
   return (
     <div className="max-w-7xl mx-auto animate-fade-in">
+      {/* Page title */}
       <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 flex items-center">
         <svg className="w-8 h-8 mr-3 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
           <path d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
@@ -17,6 +21,7 @@ const Bookmarks = () => {
         My Bookmarks
       </h1>
       
+      {/* Show message if no bookmarks exist */}
       {bookmarks.length === 0 ? (
         <div className="text-center py-16 animate-scale-in">
           <div className="bg-gray-50 border border-gray-200 rounded-lg p-12 max-w-md mx-auto">
@@ -42,6 +47,7 @@ const Bookmarks = () => {
         </div>
       ) : (
         <>
+          {/* Bookmarks summary */}
           <div className="mb-6 animate-slide-in">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <div className="flex items-center justify-between">
@@ -60,6 +66,7 @@ const Bookmarks = () => {
             </div>
           </div>
           
+          {/* Bookmarked courses grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 tablet-grid">
             {bookmarks.map((course, index) => (
               <div 
@@ -68,6 +75,7 @@ const Bookmarks = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <CourseCard course={course} />
+                {/* Remove bookmark button */}
                 <button
                   onClick={() => handleRemoveBookmark(course.id)}
                   className="absolute top-4 left-4 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all duration-200 mobile-touch-target shadow-lg hover:scale-110"
@@ -79,7 +87,7 @@ const Bookmarks = () => {
                   </svg>
                 </button>
                 
-                {/* Remove confirmation tooltip */}
+                {/* Remove confirmation tooltip (optional, not interactive) */}
                 <div className="absolute top-12 left-4 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                   Remove bookmark
                 </div>
@@ -87,7 +95,7 @@ const Bookmarks = () => {
             ))}
           </div>
           
-          {/* Quick actions */}
+          {/* Quick actions for bookmarks */}
           <div className="mt-8 text-center animate-scale-in">
             <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 max-w-md mx-auto">
               <h3 className="text-lg font-medium text-gray-900 mb-3">Quick Actions</h3>

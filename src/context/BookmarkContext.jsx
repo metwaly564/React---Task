@@ -1,17 +1,11 @@
-import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { createContext, useState, useEffect, useMemo } from 'react';
 
+// Create a context for bookmarks
 const BookmarkContext = createContext();
 
-export const useBookmarks = () => {
-  const context = useContext(BookmarkContext);
-  if (!context) {
-    throw new Error('useBookmarks must be used within a BookmarkProvider');
-  }
-  return context;
-};
-
+// Provider component to wrap the app and provide bookmark state
 export const BookmarkProvider = ({ children }) => {
-  const [bookmarks, setBookmarks] = useState([]);
+  const [bookmarks, setBookmarks] = useState([]); // State for bookmarked courses
 
   // Load bookmarks from localStorage on mount
   useEffect(() => {
@@ -26,6 +20,7 @@ export const BookmarkProvider = ({ children }) => {
     localStorage.setItem('courseBookmarks', JSON.stringify(bookmarks));
   }, [bookmarks]);
 
+  // Add a course to bookmarks
   const addBookmark = (course) => {
     setBookmarks(prev => {
       const exists = prev.find(bookmark => bookmark.id === course.id);
@@ -36,14 +31,17 @@ export const BookmarkProvider = ({ children }) => {
     });
   };
 
+  // Remove a course from bookmarks by ID
   const removeBookmark = (courseId) => {
     setBookmarks(prev => prev.filter(bookmark => bookmark.id !== courseId));
   };
 
+  // Check if a course is bookmarked
   const isBookmarked = (courseId) => {
     return bookmarks.some(bookmark => bookmark.id === courseId);
   };
 
+  // Toggle bookmark status for a course
   const toggleBookmark = (course) => {
     if (isBookmarked(course.id)) {
       removeBookmark(course.id);
@@ -66,4 +64,7 @@ export const BookmarkProvider = ({ children }) => {
       {children}
     </BookmarkContext.Provider>
   );
-}; 
+};
+
+// Export the context for use in the custom hook
+export default BookmarkContext; 

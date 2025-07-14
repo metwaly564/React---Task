@@ -1,54 +1,52 @@
+// Import React hooks, router utilities, and custom hooks
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { useBookmarks } from '../context/BookmarkContext';
-import { courseAPI } from '../services/api';
+import useBookmarks from '../context/useBookmarks'; // Custom hook for bookmarks
+import sampleData from '../../sample-data.json';
 import Dummyimage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
+// CourseDetails page component
 const CourseDetails = () => {
-  const { id } = useParams();
-  const [course, setCourse] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { id } = useParams(); // Get course ID from URL
+  const [course, setCourse] = useState(null); // State for course data
+  const [loading, setLoading] = useState(true); // Loading state
+  const [error, setError] = useState(null); // Error state
+  const { isBookmarked, toggleBookmark } = useBookmarks(); // Bookmark utilities
 
   // Scroll to top when component mounts or course ID changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
 
+  // Fetch course details from sample data
   useEffect(() => {
-    const loadCourse = async () => {
-      setLoading(true);
-      setError(null);
-      
-      try {
-        const courseData = await courseAPI.getCourseById(id);
-        setCourse(courseData);
-      } catch (error) {
-        setError('Failed to load course details. Please try again.');
-        console.error('Error loading course:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (id) {
-      loadCourse();
+    setLoading(true);
+    setError(null);
+    const foundCourse = sampleData.find(c => String(c.id) === String(id));
+    if (foundCourse) {
+      setCourse(foundCourse);
+    } else {
+      setCourse(null);
+      setError('Failed to load course details. Please try again.');
     }
+    setLoading(false);
   }, [id]);
 
+  // Handle bookmark button click
   const handleBookmarkClick = () => {
     if (course) {
       toggleBookmark(course);
     }
   };
 
+  // Format duration in hours and minutes
   const formatDuration = (minutes) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
   };
 
+  // Show loading skeleton
   if (loading) {
     return (
       <div className="max-w-4xl mx-auto animate-fade-in">
@@ -75,6 +73,7 @@ const CourseDetails = () => {
     );
   }
 
+  // Show error message if loading fails
   if (error) {
     return (
       <div className="max-w-4xl mx-auto text-center py-8 animate-fade-in">
@@ -94,6 +93,7 @@ const CourseDetails = () => {
     );
   }
 
+  // Show not found message if course is missing
   if (!course) {
     return (
       <div className="max-w-4xl mx-auto text-center py-8 animate-fade-in">
@@ -248,19 +248,17 @@ const CourseDetails = () => {
                     <h3 className="font-medium text-gray-900 truncate mobile-optimized">{lesson.title}</h3>
                     <div className="flex items-center text-sm text-gray-500 mt-1 space-x-3">
                       <div className="flex items-center">
-                        <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        <svg className="w-4 h-4 mr-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M6 2a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H7a1 1 0 01-1-1V2zm0 6a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H7a1 1 0 01-1-1V8zm0 6a1 1 0 011-1h6a1 1 0 011 1v2a1 1 0 01-1 1H7a1 1 0 01-1-1v-2z" clipRule="evenodd" />
                         </svg>
-                        <span className="mobile-optimized">{formatDuration(lesson.duration)}</span>
+                        <span>{formatDuration(lesson.duration)}</span>
                       </div>
-                      {lesson.videos_count && (
-                        <div className="flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                          </svg>
-                          <span className="mobile-optimized">{lesson.videos_count} videos</span>
-                        </div>
-                      )}
+                      <div className="flex items-center">
+                        <svg className="w-4 h-4 mr-1 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm3 9a1 1 0 11-2 0 1 1 0 012 0z" clipRule="evenodd" />
+                        </svg>
+                        <span>{lesson.videos_count || 0} videos</span>
+                      </div>
                     </div>
                   </div>
                 </div>
