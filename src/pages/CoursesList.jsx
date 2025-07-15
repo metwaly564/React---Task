@@ -11,6 +11,8 @@ const CoursesList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [categories, setCategories] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const coursesPerPage = 6;
 
   // Load categories and courses on mount
   useEffect(() => {
@@ -28,6 +30,18 @@ const CoursesList = () => {
     const matchesCategory = selectedCategory ? course.category === selectedCategory : true;
     return matchesSearch && matchesCategory;
   });
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredCourses.length / coursesPerPage);
+  const paginatedCourses = filteredCourses.slice(
+    (currentPage - 1) * coursesPerPage,
+    currentPage * coursesPerPage
+  );
+
+  // Reset to page 1 when search/filter changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory]);
 
   // Handlers for search and filter
   const handleSearch = (term) => {
@@ -111,12 +125,81 @@ const CoursesList = () => {
       ) : (
         <div className="bg-gray-50 rounded-lg p-4 animate-slide-in">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {filteredCourses.map((course) => (
+            {paginatedCourses.map((course) => (
               <div key={course.id} className="p-0">
                 <CourseCard course={course} />
               </div>
             ))}
           </div>
+          {/* Pagination Controls */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center mt-8 space-x-2">
+              <button
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className={`px-3 py-1 rounded border ${currentPage === 1 ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+              >
+                Previous
+              </button>
+              {/* Pagination window logic */}
+              {(() => {
+                const pageWindow = 2; // pages before/after current
+                const pages = [];
+                let start = Math.max(2, currentPage - pageWindow);
+                let end = Math.min(totalPages - 1, currentPage + pageWindow);
+                // Always show first page
+                pages.push(
+                  <button
+                    key={1}
+                    onClick={() => setCurrentPage(1)}
+                    className={`px-3 py-1 rounded border ${currentPage === 1 ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+                  >
+                    1
+                  </button>
+                );
+                // Ellipsis if needed
+                if (start > 2) {
+                  pages.push(<span key="start-ellipsis" className="px-2">...</span>);
+                }
+                // Page window
+                for (let i = start; i <= end; i++) {
+                  pages.push(
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(i)}
+                      className={`px-3 py-1 rounded border ${currentPage === i ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+                    >
+                      {i}
+                    </button>
+                  );
+                }
+                // Ellipsis if needed
+                if (end < totalPages - 1) {
+                  pages.push(<span key="end-ellipsis" className="px-2">...</span>);
+                }
+                // Always show last page if more than 1
+                if (totalPages > 1) {
+                  pages.push(
+                    <button
+                      key={totalPages}
+                      onClick={() => setCurrentPage(totalPages)}
+                      className={`px-3 py-1 rounded border ${currentPage === totalPages ? 'bg-blue-600 text-white' : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+                    >
+                      {totalPages}
+                    </button>
+                  );
+                }
+                return pages;
+              })()}
+              <button
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className={`px-3 py-1 rounded border ${currentPage === totalPages ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-blue-600 hover:bg-blue-50'}`}
+              >
+                Next
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -105,7 +105,7 @@ Replace `YOUR_MOCKAPI_PROJECT_ID` with your actual MockAPI project ID.
 npm run dev
 ```
 
-The application will be available at `http://localhost:5173`
+The application will be available at `React-Task.surge.sh`
 
 ## 📁 Project Structure
 
