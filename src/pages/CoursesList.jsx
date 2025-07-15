@@ -43,6 +43,11 @@ const CoursesList = () => {
     setCurrentPage(1);
   }, [searchTerm, selectedCategory]);
 
+  // Scroll to top when page changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [currentPage]);
+
   // Handlers for search and filter
   const handleSearch = (term) => {
     setSearchTerm(term);
