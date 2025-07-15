@@ -17,18 +17,24 @@ const CourseDetails = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [id]);
 
-  // Fetch course details from sample data
+  // Fetch course details from API by ID
   useEffect(() => {
     setLoading(true);
     setError(null);
-    const foundCourse = sampleData.find(c => String(c.id) === String(id));
-    if (foundCourse) {
-      setCourse(foundCourse);
-    } else {
-      setCourse(null);
-      setError('Failed to load course details. Please try again.');
-    }
-    setLoading(false);
+    fetch(`https://6873dfedc75558e273558266.mockapi.io/api/v1/courses/${id}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Network response was not ok');
+        return res.json();
+      })
+      .then(data => {
+        setCourse(data);
+        setLoading(false);
+      })
+      .catch(() => {
+        setCourse(null);
+        setError('Failed to load course details. Please try again.');
+        setLoading(false);
+      });
   }, [id]);
 
   // Handle bookmark button click
