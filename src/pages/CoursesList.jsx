@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import CourseCard from "../components/CourseCard";
 import SearchAndFilter from "../components/SearchAndFilter";
-import sampleData from "../../sample-data.json";
 
 // CoursesList page component
 const CoursesList = () => {
@@ -16,9 +15,17 @@ const CoursesList = () => {
 
   // Load categories and courses on mount
   useEffect(() => {
-    setCourses(sampleData);
-    const cats = Array.from(new Set(sampleData.map(course => course.category)));
-    setCategories(cats);
+    fetch("https://6873dfedc75558e273558266.mockapi.io/api/v1/courses/")
+      .then((res) => res.json())
+      .then((data) => {
+        setCourses(data);
+        const cats = Array.from(new Set(data.map(course => course.category)));
+        setCategories(cats);
+      })
+      .catch(() => {
+        setCourses([]);
+        setCategories([]);
+      });
   }, []);
 
   // Filtered courses based on search and category

@@ -2,7 +2,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import BookmarkContext from '../context/BookmarkContext';
-import sampleData from '../../sample-data.json';
 import Dummyimage from '../assets/Gemini_Generated_Image_59a5n359a5n359a5.png';
 
 // CourseDetails page component
